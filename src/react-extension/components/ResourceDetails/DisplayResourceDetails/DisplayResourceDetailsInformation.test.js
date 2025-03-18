@@ -21,12 +21,12 @@ import {
   defaultProps, propsWithDenyUiAction,
 } from "./DisplayResourceDetailsInformation.test.data";
 import DisplayResourceDetailsInformationPage from "./DisplayResourceDetailsInformation.test.page";
-import {ActionFeedbackContext} from "../../../contexts/ActionFeedbackContext";
-import {waitFor} from "@testing-library/dom";
-import {DateTime} from "luxon";
-import {defaultUserAppContext} from "../../../contexts/ExtAppContext.test.data";
-import {TotpCodeGeneratorService} from "../../../../shared/services/otp/TotpCodeGeneratorService";
-import {defaultTotpViewModelDto} from "../../../../shared/models/totp/TotpDto.test.data";
+import { ActionFeedbackContext } from "../../../contexts/ActionFeedbackContext";
+import { waitFor } from "@testing-library/dom";
+import { DateTime } from "luxon";
+import { defaultUserAppContext } from "../../../contexts/ExtAppContext.test.data";
+import { TotpCodeGeneratorService } from "../../../../shared/services/otp/TotpCodeGeneratorService";
+import { defaultTotpViewModelDto } from "../../../../shared/models/totp/TotpDto.test.data";
 
 describe("DisplayResourceDetailsInformation", () => {
   let page, props;
@@ -39,8 +39,8 @@ describe("DisplayResourceDetailsInformation", () => {
     props = defaultProps(); // The props to pass
 
     const user = props.context.users[0];
-    const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, {creator: user, modifier: user});
-    props.context.port.addRequestListener("passbolt.resources.find-details", async() => resourceWithContain);
+    const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, { creator: user, modifier: user });
+    props.context.port.addRequestListener("passbolt.resources.find-details", async () => resourceWithContain);
   });
 
   /**
@@ -51,30 +51,30 @@ describe("DisplayResourceDetailsInformation", () => {
    * And I should be able to see each information value
    */
   describe(' As LU I can see information of a resource', () => {
-    it('I should see the information of a resource', async() => {
+    it('I should see the information of a resource', async () => {
       page = new DisplayResourceDetailsInformationPage(props);
-      await waitFor(() => {});
+      await waitFor(() => { });
       expect.assertions(2);
       expect(page.title.hyperlink.textContent).toBe("Information");
       expect(page.displayInformationList.exists()).toBeTruthy();
     });
 
-    it('I should be able to identify each information name', async() => {
+    it('I should be able to identify each information name', async () => {
       page = new DisplayResourceDetailsInformationPage(props);
-      await waitFor(() => {});
+      await waitFor(() => { });
 
       const absoluteModificationDate = props.resourceWorkspaceContext.details.resource.modified;
       const modificationDate = DateTime.fromISO(absoluteModificationDate).toRelative();
       const absoluteCreationDate = props.resourceWorkspaceContext.details.resource.created;
       const creationDate = DateTime.fromISO(absoluteCreationDate).toRelative();
       expect.assertions(22);
-      await waitFor(() => {});
+      await waitFor(() => { });
       expect(page.displayInformationList.usernameLabel).toBe('Username');
       expect(page.displayInformationList.username.textContent).toBe(props.resourceWorkspaceContext.details.resource.metadata.username);
-      expect(page.displayInformationList.passwordLabel).toBe('Password');
-      expect(page.displayInformationList.password.textContent).toBe("Copy password to clipboard");
-      expect(page.displayInformationList.totpLabel).toBe('TOTP');
-      expect(page.displayInformationList.totp.textContent).toBe("Copy TOTP to clipboard");
+      expect(page.displayInformationList.passwordLabel).toBeNull();
+      expect(page.displayInformationList.passwordLink).toBeNull();
+      expect(page.displayInformationList.totpLabel).toBeNull();
+      expect(page.displayInformationList.totpLink).toBeNull();
       expect(page.displayInformationList.uriLabel).toBe('URI');
       expect(page.displayInformationList.uri.textContent).toBe(props.resourceWorkspaceContext.details.resource.metadata.uris[0]);
       expect(page.displayInformationList.modifiedLabel(1)).toBe('Modified');
@@ -93,32 +93,32 @@ describe("DisplayResourceDetailsInformation", () => {
       expect(page.displayInformationList.expiry.textContent).toBe("Not set");
     });
 
-    it('I can see the folder a resource is contained in', async() => {
+    it('I can see the folder a resource is contained in', async () => {
       page = new DisplayResourceDetailsInformationPage(props);
       expect.assertions(2);
       expect(page.displayInformationList.locationLabel).toBe('Location');
       expect(page.displayInformationList.location.textContent).toBe("root");
     });
 
-    it('I cannot see the folder a resource is contained in if disbaled by RBAC', async() => {
+    it('I cannot see the folder a resource is contained in if disbaled by RBAC', async () => {
       const props = propsWithDenyUiAction();
       const user = props.context.users[0];
-      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, {creator: user, modifier: user});
-      props.context.port.addRequestListener("passbolt.resources.find-details", async() => resourceWithContain);
+      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, { creator: user, modifier: user });
+      props.context.port.addRequestListener("passbolt.resources.find-details", async () => resourceWithContain);
       page = new DisplayResourceDetailsInformationPage(props);
       expect.assertions(1);
       expect(page.displayInformationList.location).toBeNull();
     });
 
-    it('I cannot see the expiry information if the feature is disbaled', async() => {
+    it('I cannot see the expiry information if the feature is disbaled', async () => {
       const props = defaultProps({
         passwordExpiryContext: {
           isFeatureEnabled: () => false
         }
       });
       const user = props.context.users[0];
-      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, {creator: user, modifier: user});
-      props.context.port.addRequestListener("passbolt.resources.find-details", async() => resourceWithContain);
+      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, { creator: user, modifier: user });
+      props.context.port.addRequestListener("passbolt.resources.find-details", async () => resourceWithContain);
 
       page = new DisplayResourceDetailsInformationPage(props);
       expect.assertions(1);
@@ -127,10 +127,10 @@ describe("DisplayResourceDetailsInformation", () => {
   });
 
   describe(' As LU I can copy username of a resource to clipboard', () => {
-    it('AS LU, I should be able to copy the username of a resource to clipboard', async() => {
+    it('AS LU, I should be able to copy the username of a resource to clipboard', async () => {
       expect.assertions(3);
       page = new DisplayResourceDetailsInformationPage(props);
-      jest.spyOn(ActionFeedbackContext._currentValue, 'displaySuccess').mockImplementation(() => {});
+      jest.spyOn(ActionFeedbackContext._currentValue, 'displaySuccess').mockImplementation(() => { });
 
       await page.displayInformationList.click(page.displayInformationList.username);
 
@@ -139,15 +139,15 @@ describe("DisplayResourceDetailsInformation", () => {
       expect(ActionFeedbackContext._currentValue.displaySuccess).toHaveBeenCalledWith("The username has been copied to clipboard");
     });
   });
-
-  describe(' As LU I can copy a secret of a resource to clipboard', () => {
-    it('AS LU, I should be able to copy the secret of a resource to clipboard', async() => {
+  // パスワード・TOTPを非表示にしたためスキップ
+  describe.skip(' As LU I can copy a secret of a resource to clipboard', () => {
+    it('AS LU, I should be able to copy the secret of a resource to clipboard', async () => {
       page = new DisplayResourceDetailsInformationPage(props);
       const totp = defaultTotpViewModelDto();
-      await waitFor(() => {});
+      await waitFor(() => { });
       mockContextRequest(copyClipboardMockImpl);
-      jest.spyOn(ActionFeedbackContext._currentValue, 'displaySuccess').mockImplementation(() => {});
-      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({password: 'secret-copy'}));
+      jest.spyOn(ActionFeedbackContext._currentValue, 'displaySuccess').mockImplementation(() => { });
+      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({ password: 'secret-copy' }));
 
       await page.displayInformationList.click(page.displayInformationList.password);
 
@@ -156,20 +156,20 @@ describe("DisplayResourceDetailsInformation", () => {
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith('secret-copy');
       expect(ActionFeedbackContext._currentValue.displaySuccess).toHaveBeenCalledWith("The secret has been copied to clipboard");
 
-      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({password: 'secret-password', description: "", totp: totp}));
+      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({ password: 'secret-password', description: "", totp: totp }));
       await page.displayInformationList.click(page.displayInformationList.totp);
       const code = TotpCodeGeneratorService.generate(totp);
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(code);
       expect(ActionFeedbackContext._currentValue.displaySuccess).toHaveBeenCalled();
     });
 
-    it('AS LU, I cannot copy secret of resource if denied by RBAC', async() => {
+    it('AS LU, I cannot copy secret of resource if denied by RBAC', async () => {
       const props = propsWithDenyUiAction();
       const user = props.context.users[0];
-      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, {creator: user, modifier: user});
-      props.context.port.addRequestListener("passbolt.resources.find-details", async() => resourceWithContain);
+      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, { creator: user, modifier: user });
+      props.context.port.addRequestListener("passbolt.resources.find-details", async () => resourceWithContain);
       page = new DisplayResourceDetailsInformationPage(props);
-      await waitFor(() => {});
+      await waitFor(() => { });
 
       expect.assertions(2);
       expect(page.displayInformationList.passwordLink.hasAttribute("disabled")).toBeTruthy();
@@ -178,12 +178,13 @@ describe("DisplayResourceDetailsInformation", () => {
   });
 
   describe(' As LU I can preview secret of a resource', () => {
-    it('AS LU, I should be able to preview secret of a resource', async() => {
+    // パスワード・TOTPを非表示にしたためスキップ
+    it.skip('AS LU, I should be able to preview secret of a resource', async () => {
       page = new DisplayResourceDetailsInformationPage(props);
       const totp = defaultTotpViewModelDto();
-      await waitFor(() => {});
-      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({password: 'secret-copy'}));
-      jest.spyOn(ActionFeedbackContext._currentValue, 'displaySuccess').mockImplementationOnce(() => {});
+      await waitFor(() => { });
+      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({ password: 'secret-copy' }));
+      jest.spyOn(ActionFeedbackContext._currentValue, 'displaySuccess').mockImplementationOnce(() => { });
 
       expect.assertions(7);
       await page.displayInformationList.click(page.displayInformationList.viewPassword);
@@ -193,7 +194,7 @@ describe("DisplayResourceDetailsInformation", () => {
       await page.displayInformationList.click(page.displayInformationList.viewPassword);
       expect(page.displayInformationList.password.textContent).toBe('Copy password to clipboard');
 
-      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({password: 'secret-password', description: "", totp: totp}));
+      jest.spyOn(props.context.port, 'request').mockImplementationOnce(() => ({ password: 'secret-password', description: "", totp: totp }));
       await page.displayInformationList.click(page.displayInformationList.viewTotp);
       const code = TotpCodeGeneratorService.generate(totp);
       expect(page.displayInformationList.totp.textContent.replaceAll(/\s+/g, "")).toBe(code);
@@ -202,33 +203,33 @@ describe("DisplayResourceDetailsInformation", () => {
       expect(page.displayInformationList.totp.textContent).toBe('Copy TOTP to clipboard');
     });
 
-    it('AS LU, I cannot preview secret of resource if disabled by API flag', async() => {
+    it('AS LU, I cannot preview secret of resource if disabled by API flag', async () => {
       const context = defaultUserAppContext({
         siteSettings: {
           getServerTimezone: () => '',
           canIUse: () => false,
         }
       });
-      const props = defaultProps({context});
+      const props = defaultProps({ context });
       const user = props.context.users[0];
-      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, {creator: user, modifier: user});
-      props.context.port.addRequestListener("passbolt.resources.find-details", async() => resourceWithContain);
+      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, { creator: user, modifier: user });
+      props.context.port.addRequestListener("passbolt.resources.find-details", async () => resourceWithContain);
 
       page = new DisplayResourceDetailsInformationPage(props);
-      await waitFor(() => {});
+      await waitFor(() => { });
 
       expect.assertions(1);
       expect(page.displayInformationList.isViewPasswordExist).toBeFalsy();
     });
 
-    it('AS LU, I cannot preview secret of resource if denied by RBAC', async() => {
+    it('AS LU, I cannot preview secret of resource if denied by RBAC', async () => {
       const props = propsWithDenyUiAction();
       const user = props.context.users[0];
-      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, {creator: user, modifier: user});
-      props.context.port.addRequestListener("passbolt.resources.find-details", async() => resourceWithContain);
+      const resourceWithContain = Object.assign({}, props.resourceWorkspaceContext.details.resource, { creator: user, modifier: user });
+      props.context.port.addRequestListener("passbolt.resources.find-details", async () => resourceWithContain);
 
       page = new DisplayResourceDetailsInformationPage(props);
-      await waitFor(() => {});
+      await waitFor(() => { });
 
       expect.assertions(1);
       expect(page.displayInformationList.isViewPasswordExist).toBeFalsy();
