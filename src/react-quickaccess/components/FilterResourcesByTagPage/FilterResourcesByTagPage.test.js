@@ -316,12 +316,14 @@ describe("FilterResourcesByTagPage", () => {
       const props = defaultProps({metadataTypeSettings: metadataTypeSettingEntity});
       const page = new FilterResourcesByTagPage(props);
       expect(page.createButton).toBeDefined();
+      expect(page.createButton).toBeFalsy();
     });
 
     it("should not display the button if metadata type settings are not loaded", () => {
       const props = defaultProps({metadataTypeSettings: null});
       const page = new FilterResourcesByTagPage(props);
       expect(page.createButton).toBeNull();
+      expect(page.createButton).toBeFalsy();
     });
 
     it("should not display the button if resource types are not loaded", () => {
