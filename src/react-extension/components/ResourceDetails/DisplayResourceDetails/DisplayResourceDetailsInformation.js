@@ -531,17 +531,12 @@ class DisplayResourceDetailsInformation extends React.Component {
   render() {
     const canUseFolders = this.props.context.siteSettings.canIUse("folders")
       && this.props.rbacContext.canIUseUiAction(uiActions.FOLDERS_USE);
-    const canPreviewSecret = this.props.context.siteSettings.canIUse("previewPassword")
-      && this.props.rbacContext.canIUseUiAction(uiActions.SECRETS_PREVIEW);
     const canUsePasswordExpiry = this.props.passwordExpiryContext.isFeatureEnabled();
-    const canCopySecret = this.props.rbacContext.canIUseUiAction(uiActions.SECRETS_COPY);
 
     const creatorUsername = this.state.creator?.username || "";
     const modifierUsername = this.state.modifier?.username || "";
     const createdDateTimeAgo = formatDateTimeAgo(this.resource.created, this.props.t, this.props.context.locale);
     const modifiedDateTimeAgo = formatDateTimeAgo(this.resource.modified, this.props.t, this.props.context.locale);
-    const isPasswordPreviewed = this.isPasswordPreviewed();
-    const isTotpPreviewed = this.isTotpPreviewed();
 
     return (
       <div className={`detailed-information accordion sidebar-section ${this.state.open ? "" : "closed"}`}>
@@ -562,6 +557,14 @@ class DisplayResourceDetailsInformation extends React.Component {
           </h4>
         </div>
         <ul className="accordion-content">
+          {this.isPasswordResources() &&
+            <>
+              <li className="username">
+                <span className="label"><Trans>Username</Trans></span>
+                <span className="value"><button type="button" className="link no-border" onClick={this.handleUsernameClickEvent}><span>{this.resource.metadata.username}</span></button></span>
+              </li>
+            </>
+          }
           <li className="uri">
             <span className="label"><Trans>URI</Trans></span>
             <span className="value">
