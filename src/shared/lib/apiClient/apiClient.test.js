@@ -687,7 +687,8 @@ describe("Unit testing apiClient with mocked fetch", () => {
 
   it('headers should contain x-passlite header', () => {
     const apiClient = new ApiClient(options);
+    const PASSLITE_VERSION = '4.10.2.1';
     const headers = apiClient.getDefaultHeaders();
-    expect(headers).toHaveProperty('x-passlite', '1');
+    expect(headers).toHaveProperty('x-passlite', PASSLITE_VERSION);
   });
 });
