@@ -11,13 +11,13 @@
  * @link          https://www.passbolt.com Passbolt(tm)
  * @since         3.0.0
  */
-import React, {Component} from "react";
-import {BROWSER_NAMES, detectBrowserName} from "../../../../shared/lib/Browser/detectBrowserName";
-import {withAppContext} from "../../../../shared/context/AppContext/AppContext";
+import React, { Component } from "react";
+import { BROWSER_NAMES, detectBrowserName } from "../../../../shared/lib/Browser/detectBrowserName";
+import { withAppContext } from "../../../../shared/context/AppContext/AppContext";
 import PropTypes from "prop-types";
-import {Trans, withTranslation} from "react-i18next";
+import { Trans, withTranslation } from "react-i18next";
 
-const CHROME_STORE_BROWSER_EXTENSION_URL = "https://chrome.google.com/webstore/detail/passbolt-extension/didegimhafipceonhjepacocaffmoppf";
+const CHROME_STORE_BROWSER_EXTENSION_URL = "https://chromewebstore.google.com/detail/passlite-%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%9E%E3%83%8D%E3%83%BC/ojlccjldbccfjnjaldfaneankdbhhick";
 const FIREFOX_STORE_BROWSER_EXTENSION_URL = "https://addons.mozilla.org/firefox/addon/passbolt";
 const EDGE_STORE_BROWSER_EXTENSION_URL = "https://microsoftedge.microsoft.com/addons/detail/passbolt-extension/ljeppgjhohmhpbdhjjjbiflabdgfkhpo";
 
@@ -111,9 +111,9 @@ class InstallExtension extends Component {
         <h1><Trans>Please install the browser extension.</Trans></h1>
         <p><Trans>Please download the browser extension and refresh this page to continue.</Trans></p>
         {this.state.browserName &&
-        <a href={this.storeUrl} className={this.storeClassName} target="_blank" rel="noopener noreferrer">
-          <img src={this.browserStoreThumbnailUrl}/>
-        </a>
+          <a href={this.storeUrl} className={this.storeClassName} target="_blank" rel="noopener noreferrer">
+            <img src={this.browserStoreThumbnailUrl} />
+          </a>
         }
         <div className="form-actions">
           <a href={this.storeUrl} className="button primary big full-width" role="button" target="_blank" rel="noopener noreferrer"><Trans>Download extension</Trans></a>
