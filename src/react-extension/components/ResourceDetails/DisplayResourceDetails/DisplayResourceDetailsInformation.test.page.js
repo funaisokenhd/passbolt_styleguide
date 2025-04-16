@@ -11,10 +11,10 @@
  * @link          https://www.passbolt.com Passbolt(tm)
  * @since         2.11.0
  */
-import {fireEvent, render, waitFor} from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import DisplayResourceDetailsInformation from "./DisplayResourceDetailsInformation";
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import MockTranslationProvider from "../../../test/mock/components/Internationalisation/MockTranslationProvider";
 
 /**
@@ -29,7 +29,7 @@ export default class PasswordSidebarInformationSectionPage {
     this._page = render(
       <MockTranslationProvider>
         <Router>
-          <DisplayResourceDetailsInformation {...props}/>
+          <DisplayResourceDetailsInformation {...props} />
         </Router>
       </MockTranslationProvider>
     );
@@ -80,10 +80,10 @@ class TitleHeaderPageObject {
   }
 
   /** Click on the title */
-  async click()  {
-    const leftClick = {button: 0};
+  async click() {
+    const leftClick = { button: 0 };
     fireEvent.click(this.hyperlink, leftClick);
-    await waitFor(() => {});
+    await waitFor(() => { });
   }
 }
 
@@ -121,7 +121,7 @@ class DisplayInformationPageObject {
    * Returns the password label elements of information
    */
   get passwordLabel() {
-    return this._container.querySelector('.password .label').textContent;
+    return this._container.querySelector('.password .label');
   }
 
   /**
@@ -156,7 +156,7 @@ class DisplayInformationPageObject {
    * Returns the totp label elements of information
    */
   get totpLabel() {
-    return this._container.querySelector('.totp .label').textContent;
+    return this._container.querySelector('.totp .label');
   }
 
   /**
@@ -265,9 +265,9 @@ class DisplayInformationPageObject {
   }
 
   /** Click on the component */
-  async click(component)  {
-    const leftClick = {button: 0};
+  async click(component) {
+    const leftClick = { button: 0 };
     fireEvent.click(component, leftClick);
-    await waitFor(() => {});
+    await waitFor(() => { });
   }
 }

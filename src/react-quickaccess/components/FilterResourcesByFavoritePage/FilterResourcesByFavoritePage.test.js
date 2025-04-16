@@ -196,6 +196,7 @@ describe("FilterResourcesByFavoritePage", () => {
       const props = defaultProps();
       const page = new FilterResourcesByFavoritePagePage(props);
       expect(page.createButton).toBeDefined();
+      expect(page.createButton).toBeFalsy();
     });
 
     it("should display the button if metadata type settings and resource types are loaded for v5", () => {
@@ -203,6 +204,7 @@ describe("FilterResourcesByFavoritePage", () => {
       const props = defaultProps({metadataTypeSettings: metadataTypeSettingEntity});
       const page = new FilterResourcesByFavoritePagePage(props);
       expect(page.createButton).toBeDefined();
+      expect(page.createButton).toBeFalsy();
     });
 
     it("should not display the button if metadata type settings are not loaded", () => {
