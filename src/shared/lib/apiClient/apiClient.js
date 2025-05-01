@@ -16,6 +16,7 @@ import PassboltBadResponseError from "../Error/PassboltBadResponseError";
 import PassboltServiceUnavailableError from "../Error/PassboltServiceUnavailableError";
 
 const SUPPORTED_METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
+const PASSLITE_VERSION = '4.10.2.1';
 export class ApiClient {
   /**
    * Constructor
@@ -60,7 +61,8 @@ export class ApiClient {
   getDefaultHeaders() {
     return {
       'Accept': 'application/json',
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      'x-passlite': PASSLITE_VERSION
     };
   }
 
@@ -72,7 +74,7 @@ export class ApiClient {
     const optionHeaders = await this.options.getHeaders();
     return {
       credentials: 'include',
-      headers: {...this.getDefaultHeaders(), ...optionHeaders}
+      headers: { ...this.getDefaultHeaders(), ...optionHeaders }
     };
   }
 
@@ -349,7 +351,7 @@ export class ApiClient {
     // eslint-disable-next-line no-undef
     const fetchStrategy = typeof customApiClientFetch !== "undefined" ? customApiClientFetch : fetch;
     const builtFecthOptions = await this.buildFetchOptions();
-    const fetchOptions = {...builtFecthOptions, ...options};
+    const fetchOptions = { ...builtFecthOptions, ...options };
     fetchOptions.method = method;
     if (body) {
       fetchOptions.body = body;
