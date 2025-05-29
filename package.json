@@ -1,11 +1,10 @@
 {
-  "name": "passbolt-styleguide",
-  "version": "4.12.0",
+  "name": "fsg-vault-styleguide",
+  "version": "4.10.2-fsg1",
   "license": "AGPL-3.0",
-  "copyright": "Copyright 2023 Passbolt SA",
-  "description": "Passbolt styleguide contains common styling assets used by the different sites, plugin, etc.",
-  "homepage": "https://www.passbolt.com",
-  "repository": "https://github.com/passbolt/passbolt_styleguide",
+  "copyright": "Original Copyright 2023 Passbolt SA & Portions Copyright 2025 Funai Consulting inc.",
+  "description": "Customized Passbolt styleguide for FSG-Vault (Customized by Funai Consulting inc.)",
+  "repository": "https://github.com/funaisokenhd/passbolt_styleguide",
   "engines": {
     "node": ">=18.18.0",
     "npm": ">=9.8.1"
