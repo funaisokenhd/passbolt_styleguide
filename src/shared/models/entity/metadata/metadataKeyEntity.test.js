@@ -11,14 +11,14 @@
  * @link          https://www.passbolt.com Passbolt(tm)
  * @since         4.10.0
  */
-import EntitySchema from "passbolt-styleguide/src/shared/models/entity/abstract/entitySchema";
+import EntitySchema from "../abstract/entitySchema";
 import * as assertEntityProperty from "../../../../../test/assert/assertEntityProperty";
-import {defaultMetadataPrivateKeyDto} from "./metadataPrivateKeyEntity.test.data";
+import { defaultMetadataPrivateKeyDto } from "./metadataPrivateKeyEntity.test.data";
 import MetadataKeyEntity from "./metadataKeyEntity";
-import {defaultMetadataKeyDto, minimalMetadataKeyDto} from "./metadataKeyEntity.test.data";
+import { defaultMetadataKeyDto, minimalMetadataKeyDto } from "./metadataKeyEntity.test.data";
 import MetadataPrivateKeysCollection from "./metadataPrivateKeysCollection";
-import {v4 as uuidv4} from "uuid";
-import {pgpKeys} from "../../../../../test/fixture/pgpKeys/keys";
+import { v4 as uuidv4 } from "uuid";
+import { pgpKeys } from "../../../../../test/fixture/pgpKeys/keys";
 
 describe("MetadataKeyEntity", () => {
   describe("::getSchema", () => {
@@ -88,10 +88,10 @@ describe("MetadataKeyEntity", () => {
     it("validates metadata_private_keys property", () => {
       const metadataKeyDto = defaultMetadataKeyDto();
       const successScenarios = [
-        {scenario: "a valid option", value: [defaultMetadataPrivateKeyDto({metadata_key_id: metadataKeyDto.id})]},
+        { scenario: "a valid option", value: [defaultMetadataPrivateKeyDto({ metadata_key_id: metadataKeyDto.id })] },
       ];
       const failScenarios = [
-        {scenario: "with invalid metadata private key build rule", value: defaultMetadataPrivateKeyDto()},
+        { scenario: "with invalid metadata private key build rule", value: defaultMetadataPrivateKeyDto() },
       ];
       assertEntityProperty.assertAssociation(MetadataKeyEntity, "metadata_private_keys", metadataKeyDto, successScenarios, failScenarios);
     });
@@ -117,7 +117,7 @@ describe("MetadataKeyEntity", () => {
 
     it("constructor works if valid DTO is provided", () => {
       expect.assertions(11);
-      const dto = defaultMetadataKeyDto({}, {withMetadataPrivateKeys: true});
+      const dto = defaultMetadataKeyDto({}, { withMetadataPrivateKeys: true });
       const entity = new MetadataKeyEntity(dto);
 
       expect(entity._props.id).toStrictEqual(dto.id);
@@ -135,7 +135,7 @@ describe("MetadataKeyEntity", () => {
 
     it("constructor throw an error if the id and the private metadata key ids are different", () => {
       expect.assertions(1);
-      const dto = defaultMetadataKeyDto({metadata_private_keys: [defaultMetadataPrivateKeyDto()]});
+      const dto = defaultMetadataKeyDto({ metadata_private_keys: [defaultMetadataPrivateKeyDto()] });
       expect(() => new MetadataKeyEntity(dto)).toThrowEntityValidationError("id:metadata_private_keys", "same_id");
     });
   });
@@ -146,7 +146,7 @@ describe("MetadataKeyEntity", () => {
       const dto1 = minimalMetadataKeyDto();
       const entity1 = new MetadataKeyEntity(dto1);
 
-      const dto2 = defaultMetadataKeyDto({created: "2024-10-05T12:10:00+00:00"});
+      const dto2 = defaultMetadataKeyDto({ created: "2024-10-05T12:10:00+00:00" });
       const entity2 = new MetadataKeyEntity(dto2);
 
       expect(entity1.created).toBeNull();
@@ -158,7 +158,7 @@ describe("MetadataKeyEntity", () => {
       const dto1 = minimalMetadataKeyDto();
       const entity1 = new MetadataKeyEntity(dto1);
 
-      const dto2 = defaultMetadataKeyDto({}, {withMetadataPrivateKeys: true});
+      const dto2 = defaultMetadataKeyDto({}, { withMetadataPrivateKeys: true });
       const entity2 = new MetadataKeyEntity(dto2);
 
       expect(entity1.metadataPrivateKeys).toBeNull();
@@ -168,7 +168,7 @@ describe("MetadataKeyEntity", () => {
     it("`id` should return the right value", () => {
       expect.assertions(1);
       const id = uuidv4();
-      const dto1 = minimalMetadataKeyDto({id: id});
+      const dto1 = minimalMetadataKeyDto({ id: id });
       const entity1 = new MetadataKeyEntity(dto1);
 
       expect(entity1.id).toStrictEqual(id);
@@ -177,7 +177,7 @@ describe("MetadataKeyEntity", () => {
     it("`armoredKey` should return the right value", () => {
       expect.assertions(1);
       const armoredKey = pgpKeys.metadataKey.public;
-      const dto1 = minimalMetadataKeyDto({armored_key: armoredKey});
+      const dto1 = minimalMetadataKeyDto({ armored_key: armoredKey });
       const entity1 = new MetadataKeyEntity(dto1);
 
       expect(entity1.armoredKey).toStrictEqual(armoredKey);
@@ -196,10 +196,10 @@ describe("MetadataKeyEntity", () => {
       const dto1 = minimalMetadataKeyDto();
       const entity1 = new MetadataKeyEntity(dto1);
       expect(entity1.expired).toBeNull();
-      const dto2 = minimalMetadataKeyDto({expired: null});
+      const dto2 = minimalMetadataKeyDto({ expired: null });
       const entity2 = new MetadataKeyEntity(dto2);
       expect(entity2.expired).toBeNull();
-      const dto3 = minimalMetadataKeyDto({expired: "2022-10-11T08:09:00+00:00"});
+      const dto3 = minimalMetadataKeyDto({ expired: "2022-10-11T08:09:00+00:00" });
       const entity3 = new MetadataKeyEntity(dto3);
       expect(entity3.expired).toStrictEqual(dto3.expired);
     });
@@ -216,21 +216,21 @@ describe("MetadataKeyEntity", () => {
       const entity3 = new MetadataKeyEntity(dto3);
       expect(entity3.toDto()).toEqual(dto3);
       // all properties and all associations
-      const dto4 = defaultMetadataKeyDto({}, {withMetadataPrivateKeys: true});
+      const dto4 = defaultMetadataKeyDto({}, { withMetadataPrivateKeys: true });
       const entity4 = new MetadataKeyEntity(dto4);
       expect(entity4.toDto()).not.toEqual(dto4);
-      expect(entity4.toDto()).toEqual({...dto4, "metadata_private_keys": undefined});
+      expect(entity4.toDto()).toEqual({ ...dto4, "metadata_private_keys": undefined });
       // all properties and all associations with contain metdata private keys
-      const dto5 = defaultMetadataKeyDto({}, {withMetadataPrivateKeys: true});
+      const dto5 = defaultMetadataKeyDto({}, { withMetadataPrivateKeys: true });
       const entity5 = new MetadataKeyEntity(dto5);
-      expect(entity5.toDto({metadata_private_keys: true})).toEqual(dto5);
+      expect(entity5.toDto({ metadata_private_keys: true })).toEqual(dto5);
     });
 
     it("contains metadata private keys", () => {
       expect.assertions(1);
-      const dto = defaultMetadataKeyDto({}, {withMetadataPrivateKeys: true});
+      const dto = defaultMetadataKeyDto({}, { withMetadataPrivateKeys: true });
       const entity = new MetadataKeyEntity(dto);
-      expect(entity.toDto({metadata_private_keys: true})).toEqual(dto);
+      expect(entity.toDto({ metadata_private_keys: true })).toEqual(dto);
     });
   });
 });

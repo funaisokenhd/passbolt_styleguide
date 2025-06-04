@@ -11,10 +11,10 @@
  * @link          https://www.passbolt.com Passbolt(tm)
  * @since         4.10.0
  */
-import EntitySchema from "passbolt-styleguide/src/shared/models/entity/abstract/entitySchema";
+import EntitySchema from "../abstract/entitySchema";
 import * as assertEntityProperty from "../../../../../test/assert/assertEntityProperty";
 import MetadataPrivateKeyDataEntity from "./metadataPrivateKeyDataEntity";
-import {defaultMetadataPrivateKeyDataDto, fullMetadataPrivateKeyDataDto} from "./metadataPrivateKeyDataEntity.test.data";
+import { defaultMetadataPrivateKeyDataDto, fullMetadataPrivateKeyDataDto } from "./metadataPrivateKeyDataEntity.test.data";
 
 describe("MetadataPrivateKeyDataEntity", () => {
   describe("::getSchema", () => {
