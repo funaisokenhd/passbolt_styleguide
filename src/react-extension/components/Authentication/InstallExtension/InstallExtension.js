@@ -17,7 +17,7 @@ import { withAppContext } from "../../../../shared/context/AppContext/AppContext
 import PropTypes from "prop-types";
 import { Trans, withTranslation } from "react-i18next";
 
-const CHROME_STORE_BROWSER_EXTENSION_URL = "https://chromewebstore.google.com/detail/passlite-%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%9E%E3%83%8D%E3%83%BC/ojlccjldbccfjnjaldfaneankdbhhick";
+const CHROME_STORE_BROWSER_EXTENSION_URL = "https://chromewebstore.google.com/detail/fsg-vault/klncegadchpollhldkhhodaiagfmfplg";
 const FIREFOX_STORE_BROWSER_EXTENSION_URL = "https://addons.mozilla.org/firefox/addon/passbolt";
 const EDGE_STORE_BROWSER_EXTENSION_URL = "https://microsoftedge.microsoft.com/addons/detail/passbolt-extension/ljeppgjhohmhpbdhjjjbiflabdgfkhpo";
 
