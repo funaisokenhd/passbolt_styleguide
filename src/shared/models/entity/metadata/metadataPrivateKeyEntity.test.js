@@ -12,7 +12,7 @@
  * @since         4.10.0
  */
 import MetadataPrivateKeyEntity from "./metadataPrivateKeyEntity";
-import EntitySchema from "passbolt-styleguide/src/shared/models/entity/abstract/entitySchema";
+import EntitySchema from "../abstract/entitySchema";
 import * as assertEntityProperty from "../../../../../test/assert/assertEntityProperty";
 import {decryptedMetadataPrivateKeyDto, defaultMetadataPrivateKeyDto, minimalMetadataPrivateKeyDto} from "./metadataPrivateKeyEntity.test.data";
 import EntityValidationError from "../abstract/entityValidationError";

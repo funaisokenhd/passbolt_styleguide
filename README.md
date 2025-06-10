@@ -1,19 +1,19 @@
-# Passbolt-styleguide for Passlite
+# FSG-Vault-styleguide for FSG-Vault
 
-Passbolt-styleguide for Passlite is a **fork** of the [passbolt_styleguide](https://github.com/passbolt/passbolt_styleguide) to be imported to [Passlite](https://github.com/funaisokenhd/passbolt_browser_extension).
+FSG-Vault-styleguide is a **fork** of the [passbolt_styleguide](https://github.com/passbolt/passbolt_styleguide) to be imported to [FSG-Vault](https://github.com/funaisokenhd/passbolt_browser_extension).
 
 The goal is to have an addon, which is more suitable for a managed (corporate) environment,
 in which users do not create and manage passwords by themselves, but rather just use whatever is shared with them.
 
 The following changes have been made compared to the original Passbolt addon:
 
-- logos and names have been changed to prevent confusion with the original Passbolt addon. We'd like to credit Passbolt immensely for the great work that they've done, but we don't want to detract from their brand or cause confusion. Passlite is mostly compatible, but it's not Passbolt.
+- logos and names have been changed to prevent confusion with the original Passbolt addon. We'd like to credit Passbolt immensely for the great work that they've done, but we don't want to detract from their brand or cause confusion. FSG-Vault is mostly compatible, but it's not Passbolt.
 
 - some filtering features (by group, Favorites, etc.) have been removed to simplify the UI. Only the "Shared with me" filter has been preserved.
 
 - "create new password", "copy (etc., any sort of editing) password" and TOTP functionalities have been removed.
 
-- a `X-Passlite: [version]` HTTP header is sent during initial `/auth/verify.json` setup requests to signify that it's the Passlite fork that is making the request. It's up to the server to make or not make use of this header.
+- a `X-FSG-Vault: [version]` HTTP header is sent during initial `/auth/verify.json` setup requests to signify that it's the FSG-Vault fork that is making the request. It's up to the server to make or not make use of this header.
 
 - a `run_all_ut.sh` was added to mitigate system load during comprehensive unit test execution.
 

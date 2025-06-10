@@ -16,7 +16,7 @@ import PassboltBadResponseError from "../Error/PassboltBadResponseError";
 import PassboltServiceUnavailableError from "../Error/PassboltServiceUnavailableError";
 
 const SUPPORTED_METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
-const PASSLITE_VERSION = '4.10.2.1';
+const FSG_VAULT_VERSION = '4.10.2-fsg1';
 export class ApiClient {
   /**
    * Constructor
@@ -62,7 +62,7 @@ export class ApiClient {
     return {
       'Accept': 'application/json',
       'content-type': 'application/json',
-      'x-passlite': PASSLITE_VERSION
+      'x-fsgvault': FSG_VAULT_VERSION
     };
   }
 
