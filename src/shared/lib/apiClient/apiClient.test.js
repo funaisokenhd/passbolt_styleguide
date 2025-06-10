@@ -685,10 +685,10 @@ describe("Unit testing apiClient with mocked fetch", () => {
     delete global.customApiClientFetch;
   });
 
-  it('headers should contain x-passlite header', () => {
+  it('headers should contain x-fsg-vault header', () => {
     const apiClient = new ApiClient(options);
-    const PASSLITE_VERSION = '4.10.2.1';
+    const FSG_VAULT_VERSION = '4.10.2-fsg1';
     const headers = apiClient.getDefaultHeaders();
-    expect(headers).toHaveProperty('x-passlite', PASSLITE_VERSION);
+    expect(headers).toHaveProperty('x-fsgvault', FSG_VAULT_VERSION);
   });
 });
